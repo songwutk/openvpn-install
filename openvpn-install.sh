@@ -269,6 +269,7 @@ dh dh.pem
 auth SHA512
 tls-crypt tc.key
 topology subnet
+duplicate-cn
 server 10.8.0.0 255.255.255.0" > /etc/openvpn/server/server.conf
 	# IPv6
 	if [[ -z "$ip6" ]]; then
@@ -340,7 +341,7 @@ crl-verify crl.pem" >> /etc/openvpn/server/server.conf
 		# Using both permanent and not permanent rules to avoid a firewalld
 		# reload.
 		# We don't use --add-service=openvpn because that would only work with
-		# the default port and protocol.
+		# the port and protocol.
 		firewall-cmd --add-port="$port"/"$protocol"
 		firewall-cmd --zone=trusted --add-source=10.8.0.0/24
 		firewall-cmd --permanent --add-port="$port"/"$protocol"
